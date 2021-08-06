@@ -3,6 +3,8 @@ package br.com.alura.forum.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +19,8 @@ import br.com.alura.forum.controller.form.TopicoForm;
 import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
-
-@RestController//essa anotação indica que por padrão todos os métodos da classe terão um @ResponseBody, indica ao Spring que o retorno do método deve ser devolvido como resposta (exibe no browser)
+////essa anotação indica que por padrão todos os métodos da classe terão um @ResponseBody,
+@RestController// indica ao Spring que o retorno do método deve ser devolvido como resposta (exibe no browser)
 @RequestMapping("/topicos")//está classe responde as requisições com o endereço /topicos
 public class TopicosController {
 	
@@ -28,8 +30,8 @@ public class TopicosController {
 	@Autowired//injeção de dependência
 	private CursoRepository cursoRepository;
 	
-	@GetMapping
-	public List<TopicoDto> lista(String nomeCurso) {//TopicoDto Output de dados
+	@GetMapping//TopicoDto Output de dados
+	public List<TopicoDto> lista(String nomeCurso) {
 		if (nomeCurso == null) {
 			List<Topico> topicos = topicoRepository.findAll();
 			return TopicoDto.converter(topicos);
@@ -39,8 +41,8 @@ public class TopicosController {
 		}
 	}
 	
-	@PostMapping
-	public ResponseEntity<TopicoDto> cadastrar(@RequestBody TopicoForm form, UriComponentsBuilder uriBuilder) {//TopicoForm Input de dados
+	@PostMapping//TopicoForm Input de dados
+	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(cursoRepository);
 		topicoRepository.save(topico);
 		
