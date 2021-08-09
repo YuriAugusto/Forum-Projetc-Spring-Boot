@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice//esta classe serve para fazer tratamento de erros
+@RestControllerAdvice//esta classe serve Para interceptar as exceptions que forem lançadas nos métodos das classes controller
 public class ErroDeValidacaoHandler {
 	
 	@Autowired
@@ -32,4 +32,5 @@ public class ErroDeValidacaoHandler {
 		
 		return dto;
 	}
+	
 }
